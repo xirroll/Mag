@@ -183,6 +183,50 @@
         background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.7) 0, transparent 30%), var(--b);
         box-shadow: inset -4px -4px 8px rgba(0, 0, 0, 0.3);
     }
+    .hero p.lead {
+        font-family: "Cormorant Garamond", "Times New Roman", serif;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-size: clamp(19px, 2.8vw, 26px);
+        line-height: 1.35;
+        color: var(--text);
+        max-width: 720px;
+        margin: 22px auto 0;
+    }
+    .btn.big {
+        margin-top: 30px;
+        padding: 16px 48px;
+        font-size: 18px;
+        animation: rise 0.8s both 0.9s, pulse 2.4s ease-out infinite 1.8s;
+    }
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(239, 223, 184, 0.55); }
+        70%, 100% { box-shadow: 0 0 0 18px rgba(239, 223, 184, 0); }
+    }
+    .reel {
+        overflow: hidden;
+        margin: 40px -20px 0;
+        padding: 14px 0;
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+    .reel-track { display: flex; align-items: flex-start; gap: 16px; width: max-content; animation: scroll 60s linear infinite; }
+    .reel:hover .reel-track { animation-play-state: paused; }
+    .reel img {
+        flex: none;
+        height: 380px;
+        width: auto;
+        padding: 6px;
+        border: 1px solid var(--ivory);
+        background: rgba(239, 223, 184, 0.08);
+    }
+    .reel img:nth-child(even) { margin-top: 26px; }
+    @keyframes scroll { to { transform: translateX(calc(-50% - 8px)); } }
+    .note { max-width: 620px; margin: 34px auto 0; text-align: center; color: var(--muted); font-size: 15px; font-style: italic; }
+    .covers img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid rgba(251, 241, 220, 0.25); }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 720px) { .reel img { height: 270px; } }
     @media (prefers-reduced-motion: reduce) { .snow { display: none; } * { animation: none !important; } }
     @media (max-width: 720px) {
         .gift { grid-template-columns: 1fr; }
@@ -206,41 +250,43 @@
     <div class="orn" style="left: 84%; height: 52px; --b: #f1e3c0; animation-delay: -3s"></div>
     <div class="wrap">
         <nav>
-            <a href="#home" id="n-home">Подарки</a>
+            <a href="#home" id="n-home">Главная</a>
+            <a href="#catalog" id="n-catalog">Подарки</a>
             <a href="#info" id="n-info">Информация</a>
         </nav>
         <main id="app"></main>
-        <footer>С наступающим Новым годом! ✦</footer>
+        <footer>
+            <div>Юлия · <a href="https://t.me/julia_sanko" target="_blank" rel="noopener">Telegram @julia_sanko</a> · <a href="tel:+79826576914">+7 982 657-69-14</a></div>
+            <div style="margin-top: 6px">С наступающим Новым годом! ✦</div>
+        </footer>
     </div>
 </div>
 
 <script>
-    // ДАННЫЕ: здесь меняем подарки (название, цена, состав, ссылка на видео)
-    var ORDER_LINK = "https://t.me/your_username";
+    // ДАННЫЕ: здесь меняем подарки, фото и контакты
+    var ORDER_LINK = "https://t.me/julia_sanko";
+    var PHOTOS = ["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg", "img/6.jpg", "img/7.jpg", "img/8.jpg"];
     var GIFTS = [
-        {
-            id: "gift-1", emoji: "🎁", name: "Тёплый вечер", price: "1 990 ₽",
-            desc: "Уютный набор для долгих зимних вечеров.",
-            items: ["Чай в жестяной банке", "Свеча с ароматом хвои", "Шоколад 100 г", "Мини-плед"],
-            video: ""
-        },
-        {
-            id: "gift-2", emoji: "🎄", name: "Ёлочка", price: "2 490 ₽",
-            desc: "Праздничный набор с ёлочными игрушками.",
-            items: ["Набор из 6 шаров", "Гирлянда", "Имбирное печенье", "Открытка"],
-            video: ""
-        },
-        {
-            id: "gift-3", emoji: "✨", name: "Волшебство", price: "3 290 ₽",
-            desc: "Большой подарок для самых близких.",
-            items: ["Какао с маршмеллоу", "Кружка", "Свеча", "Варежки", "Конфеты ассорти"],
-            video: ""
-        }
+        { id: "gift-1", emoji: "🎁", name: "Подарок 1", price: "Цена", desc: "Описание подарка появится позже.", items: ["Состав появится позже"], video: "" },
+        { id: "gift-2", emoji: "🎄", name: "Подарок 2", price: "Цена", desc: "Описание подарка появится позже.", items: ["Состав появится позже"], video: "" },
+        { id: "gift-3", emoji: "✨", name: "Подарок 3", price: "Цена", desc: "Описание подарка появится позже.", items: ["Состав появится позже"], video: "" }
     ];
 
     var app = document.getElementById("app");
 
-    function home() {
+    function landing() {
+        var imgs = PHOTOS.concat(PHOTOS).map(function (p) {
+            return '<img src="' + p + '" alt="Новогодний подарок">';
+        }).join("");
+        return '<section class="hero reveal"><h1>Уважаемые<br>магаданцы!</h1>' +
+            '<p class="lead reveal" style="animation-delay: 0.3s">Не знаете, что подарить коллегам, друзьям или близким на Новый год?</p>' +
+            '<p class="lead reveal" style="animation-delay: 0.6s">Мы создали для вас подборку прекрасных вариантов подарков. Наши идеи не оставят равнодушными ваших близких и помогут вам сэкономить время в поисках.</p>' +
+            '<a class="btn big" href="#catalog">Подарки</a></section>' +
+            '<div class="reel reveal" style="animation-delay: 1.1s"><div class="reel-track">' + imgs + '</div></div>' +
+            '<p class="note">*Если вам покажется, что подарка недостаточно, вы можете добавить в него сертификат в любимый магазин человека. Тогда подарок станет не только эстетически красивым, но и добавит масштаб и практическую ценность.</p>';
+    }
+
+    function catalog() {
         var cards = GIFTS.map(function (g, n) {
             return '<a class="card reveal" style="animation-delay:' + (0.15 * n + 0.2) + 's" href="#' + g.id + '">' +
                 '<div class="photo">' + g.emoji + '</div>' +
@@ -248,8 +294,7 @@
                 '<div class="price">' + g.price + '</div>' +
                 '<div class="more">Состав и видеообзор →</div></div></a>';
         }).join("");
-        return '<section class="hero reveal"><h1>Новогодние<br>подарки</h1>' +
-            '<p>Подборка прекрасных вариантов подарков для коллег, друзей и близких.</p>' +
+        return '<section class="hero reveal"><h1>Подарки</h1>' +
             '<span class="badge">Ноябрь: скидка 10% на все подарки</span></section>' +
             '<div class="grid">' + cards + '</div>';
     }
@@ -259,7 +304,7 @@
         var video = g.video
             ? '<iframe src="' + g.video + '" allowfullscreen></iframe>'
             : "Здесь будет видеообзор подарка";
-        return '<a class="back" href="#home">← Все подарки</a>' +
+        return '<a class="back" href="#catalog">← Все подарки</a>' +
             '<div class="gift reveal"><div class="photo">' + g.emoji + '</div>' +
             '<div><h2>' + g.name + '</h2><div class="price">' + g.price + '</div>' +
             '<p>' + g.desc + '</p><h3>Состав</h3><ul>' + list + '</ul>' +
@@ -269,7 +314,7 @@
 
     function info() {
         return '<div class="info reveal"><h2>Дополнительная информация</h2>' +
-            '<div class="covers"><div class="photo">🎁</div><div class="photo">🎄</div><div class="photo">✨</div></div>' +
+            '<div class="covers">' + [2, 3, 4].map(function (i) { return '<img src="' + PHOTOS[i] + '" alt="">'; }).join("") + '</div>' +
             '<h3>Оплата</h3><p>Оплата осуществляется по реквизитам карты. Предоплата фиксированная — 500 ₽. Остаток суммы оплачивается в день доставки, перед получением.</p>' +
             '<h3>Доставка</h3><p>Выдача заказов осуществляется с 15.12 по 30.12. Если вам подарок нужен раньше, обязательно предупредите. Заказ можно забрать самостоятельно либо оформить доставку. Доставка осуществляется в пределах города. Цена доставки — 150 ₽.</p>' +
             '<h3>Акции</h3><p>— При покупке более 3-х подарков — скидка 5%;<br>— При покупке более 10-ти подарков — скидка 10%;<br>— При покупке на сумму более 10 000 ₽ — доставка бесплатно.</p>' +
@@ -280,9 +325,12 @@
     function route() {
         var h = location.hash.replace("#", "") || "home";
         var g = GIFTS.filter(function (x) { return x.id === h; })[0];
-        app.innerHTML = g ? gift(g) : (h === "info" ? info() : home());
-        document.getElementById("n-home").className = (h === "info") ? "" : "on";
-        document.getElementById("n-info").className = (h === "info") ? "on" : "";
+        var page = g ? gift(g) : (h === "info" ? info() : (h === "catalog" ? catalog() : landing()));
+        app.innerHTML = page;
+        var tab = g ? "catalog" : (h === "info" || h === "catalog" ? h : "home");
+        ["home", "catalog", "info"].forEach(function (t) {
+            document.getElementById("n-" + t).className = (t === tab) ? "on" : "";
+        });
         window.scrollTo(0, 0);
     }
     window.addEventListener("hashchange", route);
