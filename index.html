@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Новогодние подарки</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Fira+Sans+Condensed:wght@400;500&display=swap">
+<style>
+    :root {
+        --bg: #7b1a10;
+        --bg-deep: #5c120b;
+        --card: #8c2418;
+        --text: #fff6ee;
+        --muted: #f0cfc4;
+        --gold: #e9c98b;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Fira Sans Condensed", "Arial Narrow", Arial, sans-serif;
+        font-size: 17px;
+        line-height: 1.5;
+    }
+    .frame {
+        position: relative;
+        margin: 14px;
+        border: 2px solid var(--text);
+        min-height: calc(100vh - 28px);
+        padding: 28px 20px 40px;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; position: relative; z-index: 1; }
+    h1, h2, h3 {
+        font-family: "Cormorant Garamond", "Times New Roman", serif;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin: 0;
+    }
+    h1 { font-size: clamp(30px, 6vw, 54px); line-height: 1.1; }
+    h2 { font-size: clamp(24px, 4vw, 36px); }
+    nav {
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+        margin-bottom: 30px;
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+    nav a { color: var(--muted); text-decoration: none; padding-bottom: 3px; border-bottom: 1px solid transparent; }
+    nav a.on, nav a:hover { color: var(--text); border-color: var(--gold); }
+    .hero { text-align: center; padding: 20px 0 36px; }
+    .hero p { max-width: 560px; margin: 18px auto 0; color: var(--muted); }
+    .badge {
+        display: inline-block;
+        margin-top: 22px;
+        padding: 8px 18px;
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 14px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 22px; }
+    .card {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+        background: var(--card);
+        border: 1px solid rgba(255, 246, 238, 0.25);
+        transition: transform 0.25s, border-color 0.25s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .photo {
+        aspect-ratio: 4 / 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 64px;
+        background: linear-gradient(135deg, #a3291b, #5c120b);
+        border-bottom: 1px solid rgba(255, 246, 238, 0.25);
+    }
+    .card .body { padding: 16px 18px 20px; }
+    .card h3 { font-size: 24px; }
+    .price { color: var(--gold); font-size: 22px; margin-top: 6px; }
+    .more { font-size: 14px; color: var(--muted); margin-top: 8px; }
+    .back { display: inline-block; margin-bottom: 20px; color: var(--muted); text-decoration: none; }
+    .back:hover { color: var(--text); }
+    .gift { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .gift .photo { aspect-ratio: 1; font-size: 110px; border: 1px solid rgba(255, 246, 238, 0.25); }
+    .gift ul { padding-left: 20px; margin: 12px 0 22px; }
+    .gift li { margin-bottom: 4px; }
+    .gift .price { font-size: 30px; margin: 10px 0 18px; }
+    .video {
+        margin-top: 28px;
+        aspect-ratio: 16 / 9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: var(--bg-deep);
+        border: 1px dashed var(--gold);
+        color: var(--muted);
+        padding: 20px;
+    }
+    .video iframe { width: 100%; height: 100%; border: 0; }
+    .btn {
+        display: inline-block;
+        background: var(--text);
+        color: var(--bg);
+        padding: 13px 30px;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 500;
+    }
+    .btn:hover { background: var(--gold); }
+    .info { max-width: 640px; margin: 0 auto; }
+    .info h2 { text-align: center; margin-bottom: 26px; }
+    .info h3 { font-size: 22px; text-align: center; margin: 30px 0 10px; color: var(--gold); }
+    .info p { margin: 0 0 8px; }
+    .covers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+    .covers .photo { aspect-ratio: 1; font-size: 36px; }
+    footer { text-align: center; margin-top: 44px; color: var(--muted); font-size: 14px; }
+    .snow { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .snow i {
+        position: absolute;
+        top: -10px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #fff;
+        opacity: 0.6;
+        animation: fall linear infinite;
+    }
+    @keyframes fall { to { transform: translateY(105vh) translateX(30px); } }
+    @media (prefers-reduced-motion: reduce) { .snow { display: none; } }
+    @media (max-width: 720px) {
+        .gift { grid-template-columns: 1fr; }
+        .frame { margin: 8px; padding: 22px 14px 32px; }
+    }
+</style>
+</head>
+<body>
+<div class="snow" id="snow"></div>
+<div class="frame">
+    <div class="wrap">
+        <nav>
+            <a href="#home" id="n-home">Подарки</a>
+            <a href="#info" id="n-info">Информация</a>
+        </nav>
+        <main id="app"></main>
+        <footer>С наступающим Новым годом! ✦</footer>
+    </div>
+</div>
+
+<script>
+    // ДАННЫЕ: здесь меняем подарки (название, цена, состав, ссылка на видео)
+    var ORDER_LINK = "https://t.me/your_username";
+    var GIFTS = [
+        {
+            id: "gift-1", emoji: "🎁", name: "Тёплый вечер", price: "1 990 ₽",
+            desc: "Уютный набор для долгих зимних вечеров.",
+            items: ["Чай в жестяной банке", "Свеча с ароматом хвои", "Шоколад 100 г", "Мини-плед"],
+            video: ""
+        },
+        {
+            id: "gift-2", emoji: "🎄", name: "Ёлочка", price: "2 490 ₽",
+            desc: "Праздничный набор с ёлочными игрушками.",
+            items: ["Набор из 6 шаров", "Гирлянда", "Имбирное печенье", "Открытка"],
+            video: ""
+        },
+        {
+            id: "gift-3", emoji: "✨", name: "Волшебство", price: "3 290 ₽",
+            desc: "Большой подарок для самых близких.",
+            items: ["Какао с маршмеллоу", "Кружка", "Свеча", "Варежки", "Конфеты ассорти"],
+            video: ""
+        }
+    ];
+
+    var app = document.getElementById("app");
+
+    function home() {
+        var cards = GIFTS.map(function (g) {
+            return '<a class="card" href="#' + g.id + '">' +
+                '<div class="photo">' + g.emoji + '</div>' +
+                '<div class="body"><h3>' + g.name + '</h3>' +
+                '<div class="price">' + g.price + '</div>' +
+                '<div class="more">Состав и видеообзор →</div></div></a>';
+        }).join("");
+        return '<section class="hero"><h1>Новогодние<br>подарки</h1>' +
+            '<p>Подборка прекрасных вариантов подарков для коллег, друзей и близких.</p>' +
+            '<span class="badge">Ноябрь: скидка 10% на все подарки</span></section>' +
+            '<div class="grid">' + cards + '</div>';
+    }
+
+    function gift(g) {
+        var list = g.items.map(function (i) { return "<li>" + i + "</li>"; }).join("");
+        var video = g.video
+            ? '<iframe src="' + g.video + '" allowfullscreen></iframe>'
+            : "Здесь будет видеообзор подарка";
+        return '<a class="back" href="#home">← Все подарки</a>' +
+            '<div class="gift"><div class="photo">' + g.emoji + '</div>' +
+            '<div><h2>' + g.name + '</h2><div class="price">' + g.price + '</div>' +
+            '<p>' + g.desc + '</p><h3>Состав</h3><ul>' + list + '</ul>' +
+            '<a class="btn" href="' + ORDER_LINK + '" target="_blank" rel="noopener">Заказать</a></div></div>' +
+            '<div class="video">' + video + '</div>';
+    }
+
+    function info() {
+        return '<div class="info"><h2>Дополнительная информация</h2>' +
+            '<div class="covers"><div class="photo">🎁</div><div class="photo">🎄</div><div class="photo">✨</div></div>' +
+            '<h3>Оплата</h3><p>Оплата осуществляется по реквизитам карты. Предоплата фиксированная — 500 ₽. Остаток суммы оплачивается в день доставки, перед получением.</p>' +
+            '<h3>Доставка</h3><p>Выдача заказов осуществляется с 15.12 по 30.12. Если вам подарок нужен раньше, обязательно предупредите. Заказ можно забрать самостоятельно либо оформить доставку. Доставка осуществляется в пределах города. Цена доставки — 150 ₽.</p>' +
+            '<h3>Акции</h3><p>— При покупке более 3-х подарков — скидка 5%;<br>— При покупке более 10-ти подарков — скидка 10%;<br>— При покупке на сумму более 10 000 ₽ — доставка бесплатно.</p>' +
+            '<p style="margin-top:14px">Акция ноября: при заказе с 1.11 по 30.11 действует скидка 10% на все подарки.</p>' +
+            '<p style="margin-top:14px;color:var(--muted);font-size:15px">Если вам покажется, что подарка недостаточно, вы можете добавить в него сертификат в любимый магазин человека.</p></div>';
+    }
+
+    function route() {
+        var h = location.hash.replace("#", "") || "home";
+        var g = GIFTS.filter(function (x) { return x.id === h; })[0];
+        app.innerHTML = g ? gift(g) : (h === "info" ? info() : home());
+        document.getElementById("n-home").className = (h === "info") ? "" : "on";
+        document.getElementById("n-info").className = (h === "info") ? "on" : "";
+        window.scrollTo(0, 0);
+    }
+    window.addEventListener("hashchange", route);
+    route();
+
+    // Снег
+    var snow = document.getElementById("snow");
+    for (var i = 0; i < 40; i++) {
+        var s = document.createElement("i");
+        s.style.left = Math.random() * 100 + "%";
+        s.style.animationDuration = (8 + Math.random() * 10) + "s";
+        s.style.animationDelay = (-Math.random() * 15) + "s";
+        s.style.width = s.style.height = (3 + Math.random() * 4) + "px";
+        snow.appendChild(s);
+    }
+</script>
+</body>
+</html>
