@@ -10,7 +10,8 @@
         --bg: #7b1a10;
         --bg-deep: #5c120b;
         --card: #8c2418;
-        --text: #fff6ee;
+        --text: #fbf1dc;
+        --ivory: #efdfb8;
         --muted: #f0cfc4;
         --gold: #e9c98b;
         box-sizing: border-box;
@@ -30,7 +31,8 @@
     .frame {
         position: relative;
         margin: 14px;
-        border: 2px solid var(--text);
+        border: 2px solid var(--ivory);
+        box-shadow: inset 0 0 0 6px var(--bg), inset 0 0 0 7px rgba(239, 223, 184, 0.45);
         min-height: calc(100vh - 28px);
         padding: 28px 20px 40px;
     }
@@ -140,16 +142,68 @@
         animation: fall linear infinite;
     }
     @keyframes fall { to { transform: translateY(105vh) translateX(30px); } }
-    @media (prefers-reduced-motion: reduce) { .snow { display: none; } }
+    .reveal { animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+    .hero h1 {
+        background: linear-gradient(100deg, var(--text) 30%, #fff 45%, var(--gold) 55%, var(--text) 70%);
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: shine 6s linear infinite;
+    }
+    @keyframes shine { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+    .gift .photo { animation: float 4s ease-in-out infinite; }
+    @keyframes float { 50% { transform: translateY(-8px); } }
+    .lights { position: absolute; top: -8px; left: 90px; right: 90px; display: flex; justify-content: space-between; z-index: 2; pointer-events: none; }
+    .lights i {
+        width: 10px;
+        height: 14px;
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        background: var(--c);
+        box-shadow: 0 0 10px 2px var(--c);
+        animation: twinkle 2.4s ease-in-out infinite;
+    }
+    @keyframes twinkle { 50% { opacity: 0.3; } }
+    .cane { position: absolute; top: -12px; width: 46px; z-index: 2; pointer-events: none; transform-origin: 50% 15%; animation: sway 5s ease-in-out infinite; }
+    .cane svg { display: block; width: 100%; height: auto; }
+    .cane.l { left: 30px; }
+    .cane.r { right: 30px; animation-delay: -2.5s; }
+    .cane.r svg { transform: scaleX(-1); }
+    @keyframes sway { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+    .orn { position: absolute; top: 0; width: 2px; background: var(--ivory); transform-origin: 50% 0; z-index: 1; pointer-events: none; animation: sway 4s ease-in-out infinite; }
+    .orn::after {
+        content: "";
+        position: absolute;
+        bottom: -22px;
+        left: -11px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.7) 0, transparent 30%), var(--b);
+        box-shadow: inset -4px -4px 8px rgba(0, 0, 0, 0.3);
+    }
+    @media (prefers-reduced-motion: reduce) { .snow { display: none; } * { animation: none !important; } }
     @media (max-width: 720px) {
         .gift { grid-template-columns: 1fr; }
         .frame { margin: 8px; padding: 22px 14px 32px; }
+        .cane { width: 32px; }
+        .cane.l { left: 14px; }
+        .cane.r { right: 14px; }
+        .lights { left: 56px; right: 56px; }
     }
 </style>
 </head>
 <body>
 <div class="snow" id="snow"></div>
 <div class="frame">
+    <div class="lights" id="lights"></div>
+    <div class="cane l"><svg viewBox="0 0 52 110"><path d="M14 108V30a12 12 0 0 1 24 0V36" fill="none" stroke="#fbf1dc" stroke-width="10" stroke-linecap="round"/><path d="M14 108V30a12 12 0 0 1 24 0V36" fill="none" stroke="#c8201a" stroke-width="10" stroke-dasharray="7 9"/></svg></div>
+    <div class="cane r"><svg viewBox="0 0 52 110"><path d="M14 108V30a12 12 0 0 1 24 0V36" fill="none" stroke="#fbf1dc" stroke-width="10" stroke-linecap="round"/><path d="M14 108V30a12 12 0 0 1 24 0V36" fill="none" stroke="#c8201a" stroke-width="10" stroke-dasharray="7 9"/></svg></div>
+    <div class="orn" style="left: 16%; height: 30px; --b: #d4a24c"></div>
+    <div class="orn" style="left: 30%; height: 46px; --b: #f1e3c0; animation-delay: -1s"></div>
+    <div class="orn" style="left: 70%; height: 38px; --b: #d4a24c; animation-delay: -2s"></div>
+    <div class="orn" style="left: 84%; height: 52px; --b: #f1e3c0; animation-delay: -3s"></div>
     <div class="wrap">
         <nav>
             <a href="#home" id="n-home">Подарки</a>
@@ -187,14 +241,14 @@
     var app = document.getElementById("app");
 
     function home() {
-        var cards = GIFTS.map(function (g) {
-            return '<a class="card" href="#' + g.id + '">' +
+        var cards = GIFTS.map(function (g, n) {
+            return '<a class="card reveal" style="animation-delay:' + (0.15 * n + 0.2) + 's" href="#' + g.id + '">' +
                 '<div class="photo">' + g.emoji + '</div>' +
                 '<div class="body"><h3>' + g.name + '</h3>' +
                 '<div class="price">' + g.price + '</div>' +
                 '<div class="more">Состав и видеообзор →</div></div></a>';
         }).join("");
-        return '<section class="hero"><h1>Новогодние<br>подарки</h1>' +
+        return '<section class="hero reveal"><h1>Новогодние<br>подарки</h1>' +
             '<p>Подборка прекрасных вариантов подарков для коллег, друзей и близких.</p>' +
             '<span class="badge">Ноябрь: скидка 10% на все подарки</span></section>' +
             '<div class="grid">' + cards + '</div>';
@@ -206,7 +260,7 @@
             ? '<iframe src="' + g.video + '" allowfullscreen></iframe>'
             : "Здесь будет видеообзор подарка";
         return '<a class="back" href="#home">← Все подарки</a>' +
-            '<div class="gift"><div class="photo">' + g.emoji + '</div>' +
+            '<div class="gift reveal"><div class="photo">' + g.emoji + '</div>' +
             '<div><h2>' + g.name + '</h2><div class="price">' + g.price + '</div>' +
             '<p>' + g.desc + '</p><h3>Состав</h3><ul>' + list + '</ul>' +
             '<a class="btn" href="' + ORDER_LINK + '" target="_blank" rel="noopener">Заказать</a></div></div>' +
@@ -214,7 +268,7 @@
     }
 
     function info() {
-        return '<div class="info"><h2>Дополнительная информация</h2>' +
+        return '<div class="info reveal"><h2>Дополнительная информация</h2>' +
             '<div class="covers"><div class="photo">🎁</div><div class="photo">🎄</div><div class="photo">✨</div></div>' +
             '<h3>Оплата</h3><p>Оплата осуществляется по реквизитам карты. Предоплата фиксированная — 500 ₽. Остаток суммы оплачивается в день доставки, перед получением.</p>' +
             '<h3>Доставка</h3><p>Выдача заказов осуществляется с 15.12 по 30.12. Если вам подарок нужен раньше, обязательно предупредите. Заказ можно забрать самостоятельно либо оформить доставку. Доставка осуществляется в пределах города. Цена доставки — 150 ₽.</p>' +
@@ -233,6 +287,16 @@
     }
     window.addEventListener("hashchange", route);
     route();
+
+    // Гирлянда
+    var lights = document.getElementById("lights");
+    var colors = ["#ff5a4d", "#ffd36b", "#7be0a4", "#8fd3ff"];
+    for (var k = 0; k < 14; k++) {
+        var b = document.createElement("i");
+        b.style.setProperty("--c", colors[k % 4]);
+        b.style.animationDelay = (k * 0.3) + "s";
+        lights.appendChild(b);
+    }
 
     // Снег
     var snow = document.getElementById("snow");
