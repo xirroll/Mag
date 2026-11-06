@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#4a0f1b">
 <title>Новогодние подарки</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Fira+Sans+Condensed:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Fira+Sans+Condensed:wght@400;500&family=Inter:wght@800&family=Tenor+Sans&family=Great+Vibes&family=Marck+Script&family=Unbounded:wght@500&display=swap">
 <style>
     :root {
         --bg: #4a0f1b;
@@ -266,6 +266,53 @@
         background-color: #4a0f1b;
         overscroll-behavior: none;
     }
+    h1, h2, h3 { font-family: "Tenor Sans", "Cormorant Garamond", Georgia, serif; font-weight: 400; }
+    nav { font-family: "Tenor Sans", "Fira Sans Condensed", Arial, sans-serif; letter-spacing: 0.14em; }
+    .price { font-family: "Tenor Sans", Georgia, serif; }
+    .btn { font-family: "Unbounded", "Fira Sans Condensed", Arial, sans-serif; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; }
+    .btn.big { font-size: 16px; }
+    .hero h1.bigtitle {
+        position: relative;
+        display: inline-block;
+        background: none;
+        color: var(--text);
+        animation: none;
+        font-family: "Inter", "Arial Black", Arial, sans-serif;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        line-height: 1;
+        font-size: clamp(40px, 9vw, 92px);
+        margin-bottom: 8px;
+    }
+    .bt-main {
+        display: inline-block;
+        background: linear-gradient(100deg, var(--text) 30%, #fff 45%, var(--gold) 55%, var(--text) 70%);
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: shine 6s linear infinite;
+    }
+    .bt-script {
+        position: absolute;
+        left: 50%;
+        top: 54%;
+        transform: translate(-50%, -50%) rotate(-5deg);
+        font-family: "Great Vibes", "Marck Script", cursive;
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: 0;
+        font-size: 0.8em;
+        white-space: nowrap;
+        color: #f6f6f7;
+        text-shadow: -2px -2px 0 #2e0911, 2px -2px 0 #2e0911, -2px 2px 0 #2e0911, 2px 2px 0 #2e0911, 0 3px 14px rgba(0, 0, 0, 0.5);
+        animation: write 1.4s ease-out 0.6s both;
+    }
+    @keyframes write {
+        from { clip-path: inset(-40% 100% -40% -10%); }
+        to { clip-path: inset(-40% -10% -40% -10%); }
+    }
     @media (prefers-reduced-motion: reduce) { .snow { display: none; } * { animation: none !important; } }
     @media (max-width: 720px) {
         .gift { grid-template-columns: 1fr; }
@@ -309,7 +356,7 @@
         var imgs = PHOTOS.concat(PHOTOS, PHOTOS, PHOTOS).map(function (p) {
             return '<img src="' + p + '" alt="Новогодний подарок">';
         }).join("");
-        return '<section class="hero reveal"><h1>Уважаемые<br>магаданцы!</h1>' +
+        return '<section class="hero reveal"><h1 class="bigtitle"><span class="bt-main">Где купить<br>подарки</span><span class="bt-script">в Магадане</span></h1>' +
             '<p class="lead reveal" style="animation-delay: 0.3s">Не знаете, что подарить коллегам, друзьям или близким на Новый год?</p>' +
             '<p class="lead reveal" style="animation-delay: 0.6s">Мы создали для вас подборку прекрасных вариантов подарков. Наши идеи не оставят равнодушными ваших близких и помогут вам сэкономить время в поисках.</p>' +
             '<a class="btn big" href="#catalog">Подарки <span class="arrow">→</span></a></section>' +
