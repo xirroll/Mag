@@ -4,7 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#4a0f1b">
-<title>Новогодние подарки</title>
+<title>Новогодние подарки в Магадане</title>
+<meta name="description" content="Готовые новогодние подарки в Магадане: подборка, состав, цены и заказ в Telegram. Выдача заказов с 15.12 по 30.12.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Новогодние подарки в Магадане">
+<meta property="og:description" content="Подборка новогодних подарков для коллег, друзей и близких. Заказ в Telegram.">
+<meta property="og:image" content="img/photo-1.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%81%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Fira+Sans+Condensed:wght@400;500&family=Inter:wght@800&family=Tenor+Sans&family=Great+Vibes&family=Marck+Script&display=swap">
 <style>
     :root {
@@ -35,6 +41,7 @@
         border: 2px solid var(--ivory);
         box-shadow: inset 0 0 0 6px var(--bg), inset 0 0 0 7px rgba(147, 149, 151, 0.45);
         min-height: calc(100vh - 28px);
+        min-height: calc(100dvh - 28px);
         padding: 28px 20px 40px;
     }
     .wrap { max-width: 980px; margin: 0 auto; position: relative; z-index: 1; }
@@ -228,7 +235,7 @@
     .covers img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid rgba(147, 149, 151, 0.25); }
     footer a { color: var(--gold); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
-    @media (max-width: 720px) { .reel img { height: 270px; } }
+    @media (max-width: 720px) { .reel img { height: 270px; } .reel { margin-left: -14px; margin-right: -14px; } }
     h1, h2, h3 { font-weight: 600; }
     .card { border-radius: 22px; overflow: hidden; background: rgba(147, 149, 151, 0.04); border: 1.5px solid rgba(147, 149, 151, 0.6); }
     .gift .photo, .video { border-radius: 20px; }
@@ -367,8 +374,9 @@
     var app = document.getElementById("app");
 
     function landing() {
-        var imgs = PHOTOS.concat(PHOTOS, PHOTOS, PHOTOS).map(function (p) {
-            return '<img src="' + p + '" alt="Новогодний подарок">';
+        var imgs = PHOTOS.concat(PHOTOS, PHOTOS, PHOTOS).map(function (p, i) {
+            var first = i < PHOTOS.length;
+            return '<img src="' + p + '" width="450" height="800" decoding="async" alt="' + (first ? "Новогодний подарок" : "") + '"' + (first ? "" : ' aria-hidden="true"') + '>';
         }).join("");
         return '<section class="hero reveal"><h1 class="bigtitle"><span class="bt-main">Где купить<br>подарки</span><span class="bt-script">в Магадане</span></h1>' +
             '<p class="lead reveal" style="animation-delay: 0.3s">Не знаете, что подарить коллегам, друзьям или близким на Новый год?</p>' +
@@ -394,7 +402,7 @@
     function gift(g) {
         var list = g.items.map(function (i) { return "<li>" + i + "</li>"; }).join("");
         var video = g.video
-            ? '<iframe src="' + g.video + '" allowfullscreen></iframe>'
+            ? '<iframe src="' + g.video + '" title="Видеообзор: ' + g.name + '" loading="lazy" allowfullscreen></iframe>'
             : "Здесь будет видеообзор подарка";
         return '<a class="back" href="#catalog">← Все подарки</a>' +
             '<div class="gift reveal"><div class="photo">' + g.emoji + '</div>' +
@@ -406,7 +414,7 @@
 
     function info() {
         return '<div class="info reveal"><h2>Дополнительная информация</h2>' +
-            '<div class="covers">' + [[0, "50% 50%"], [1, "50% 88%"], [2, "50% 100%"]].map(function (c) { return '<img src="' + PHOTOS[c[0]] + '" style="object-position: ' + c[1] + '" alt="">'; }).join("") + '</div>' +
+            '<div class="covers">' + [[0, "50% 50%"], [1, "50% 88%"], [2, "50% 100%"]].map(function (c) { return '<img src="' + PHOTOS[c[0]] + '" width="450" height="800" loading="lazy" style="object-position: ' + c[1] + '" alt="">'; }).join("") + '</div>' +
             '<h3>Оплата</h3><p>Оплата осуществляется по реквизитам карты. Предоплата фиксированная — 500 ₽. Остаток суммы оплачивается в день доставки, перед получением.</p>' +
             '<h3>Доставка</h3><p>Выдача заказов осуществляется с 15.12 по 30.12. Если вам подарок нужен раньше, обязательно предупредите. Заказ можно забрать самостоятельно либо оформить доставку. Доставка осуществляется в пределах города. Цена доставки — 150 ₽.</p>' +
             '<h3>Акции</h3><p>— При покупке более 3-х подарков — скидка 5%;<br>— При покупке более 10-ти подарков — скидка 10%;<br>— При покупке на сумму более 10 000 ₽ — доставка бесплатно.</p>' +
@@ -423,7 +431,7 @@
         ["home", "catalog", "info"].forEach(function (t) {
             document.getElementById("n-" + t).className = (t === tab) ? "on" : "";
         });
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
     window.addEventListener("hashchange", route);
     route();
