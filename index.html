@@ -3,17 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4a0f1b">
 <title>Новогодние подарки</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Fira+Sans+Condensed:wght@400;500&display=swap">
 <style>
     :root {
-        --bg: #4a0b0d;
-        --bg-deep: #35070a;
-        --card: #5a1013;
-        --text: #f4e6c8;
-        --ivory: #ecd9ad;
-        --muted: #d9bfa6;
-        --gold: #e9c98b;
+        --bg: #4a0f1b;
+        --bg-deep: #2e0911;
+        --card: #5a1425;
+        --text: #c9cbce;
+        --ivory: #939597;
+        --muted: #a2a4a7;
+        --gold: #b4b6b9;
         box-sizing: border-box;
         padding-top: env(safe-area-inset-top, 0px);
         padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -22,7 +23,7 @@
     html { scroll-behavior: smooth; }
     body {
         margin: 0;
-        background: radial-gradient(ellipse at 50% 0%, #5e1215 0%, var(--bg) 55%, #36070a 100%) fixed;
+        background: transparent;
         color: var(--text);
         font-family: "Fira Sans Condensed", "Arial Narrow", Arial, sans-serif;
         font-size: 17px;
@@ -32,7 +33,7 @@
         position: relative;
         margin: 14px;
         border: 2px solid var(--ivory);
-        box-shadow: inset 0 0 0 6px var(--bg), inset 0 0 0 7px rgba(239, 223, 184, 0.45);
+        box-shadow: inset 0 0 0 6px var(--bg), inset 0 0 0 7px rgba(147, 149, 151, 0.45);
         min-height: calc(100vh - 28px);
         padding: 28px 20px 40px;
     }
@@ -75,7 +76,7 @@
         color: inherit;
         text-decoration: none;
         background: var(--card);
-        border: 1px solid rgba(255, 246, 238, 0.25);
+        border: 1px solid rgba(147, 149, 151, 0.25);
         transition: transform 0.25s, border-color 0.25s;
     }
     .card:hover { transform: translateY(-4px); border-color: var(--gold); }
@@ -85,8 +86,8 @@
         align-items: center;
         justify-content: center;
         font-size: 64px;
-        background: linear-gradient(135deg, #7a1a1c, #35070a);
-        border-bottom: 1px solid rgba(255, 246, 238, 0.25);
+        background: linear-gradient(135deg, #6e1a2c, #2e0911);
+        border-bottom: 1px solid rgba(147, 149, 151, 0.25);
     }
     .card .body { padding: 16px 18px 20px; }
     .card h3 { font-size: 24px; }
@@ -95,7 +96,7 @@
     .back { display: inline-block; margin-bottom: 20px; color: var(--muted); text-decoration: none; }
     .back:hover { color: var(--text); }
     .gift { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-    .gift .photo { aspect-ratio: 1; font-size: 110px; border: 1px solid rgba(255, 246, 238, 0.25); }
+    .gift .photo { aspect-ratio: 1; font-size: 110px; border: 1px solid rgba(147, 149, 151, 0.25); }
     .gift ul { padding-left: 20px; margin: 12px 0 22px; }
     .gift li { margin-bottom: 4px; }
     .gift .price { font-size: 30px; margin: 10px 0 18px; }
@@ -200,8 +201,8 @@
         animation: rise 0.8s both 0.9s, pulse 2.4s ease-out infinite 1.8s;
     }
     @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(239, 223, 184, 0.55); }
-        70%, 100% { box-shadow: 0 0 0 18px rgba(239, 223, 184, 0); }
+        0% { box-shadow: 0 0 0 0 rgba(147, 149, 151, 0.55); }
+        70%, 100% { box-shadow: 0 0 0 18px rgba(147, 149, 151, 0); }
     }
     .reel {
         overflow: hidden;
@@ -218,17 +219,17 @@
         width: auto;
         padding: 6px;
         border: 1px solid var(--ivory);
-        background: rgba(239, 223, 184, 0.08);
+        background: rgba(147, 149, 151, 0.08);
     }
     .reel img:nth-child(even) { margin-top: 26px; }
     @keyframes scroll { to { transform: translateX(-50%); } }
     .note { max-width: 620px; margin: 34px auto 0; text-align: center; color: var(--muted); font-size: 15px; font-style: italic; }
-    .covers img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid rgba(251, 241, 220, 0.25); }
+    .covers img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid rgba(147, 149, 151, 0.25); }
     footer a { color: var(--gold); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     @media (max-width: 720px) { .reel img { height: 270px; } }
     h1, h2, h3 { font-weight: 600; }
-    .card { border-radius: 22px; overflow: hidden; background: rgba(244, 230, 200, 0.04); border: 1.5px solid rgba(236, 217, 173, 0.6); }
+    .card { border-radius: 22px; overflow: hidden; background: rgba(147, 149, 151, 0.04); border: 1.5px solid rgba(147, 149, 151, 0.6); }
     .gift .photo, .video { border-radius: 20px; }
     .covers img { border-radius: 14px; }
     .reel img { border-radius: 18px; margin-right: 16px; }
@@ -241,8 +242,8 @@
         gap: 12px;
         padding: 18px 56px;
         font-size: 19px;
-        background: linear-gradient(135deg, #f8edd3, #e3c98f);
-        color: #4a0b0d;
+        background: linear-gradient(135deg, #e6e7e9, #a7a9ac);
+        color: #4a0f1b;
         transition: transform 0.25s;
     }
     .btn.big::before {
@@ -260,6 +261,11 @@
     .btn.big:hover { transform: translateY(-2px) scale(1.04); }
     .btn.big:hover .arrow { transform: translateX(7px); }
     @keyframes glint { 0% { left: -60%; } 40%, 100% { left: 130%; } }
+    html {
+        background: radial-gradient(ellipse at 50% 0%, #5c1424 0%, #4a0f1b 55%, #2e0911 100%) fixed;
+        background-color: #4a0f1b;
+        overscroll-behavior: none;
+    }
     @media (prefers-reduced-motion: reduce) { .snow { display: none; } * { animation: none !important; } }
     @media (max-width: 720px) {
         .gift { grid-template-columns: 1fr; }
