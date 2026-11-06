@@ -7,12 +7,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Fira+Sans+Condensed:wght@400;500&display=swap">
 <style>
     :root {
-        --bg: #7b1a10;
-        --bg-deep: #5c120b;
-        --card: #8c2418;
-        --text: #fbf1dc;
-        --ivory: #efdfb8;
-        --muted: #f0cfc4;
+        --bg: #4a0b0d;
+        --bg-deep: #35070a;
+        --card: #5a1013;
+        --text: #f4e6c8;
+        --ivory: #ecd9ad;
+        --muted: #d9bfa6;
         --gold: #e9c98b;
         box-sizing: border-box;
         padding-top: env(safe-area-inset-top, 0px);
@@ -22,7 +22,7 @@
     html { scroll-behavior: smooth; }
     body {
         margin: 0;
-        background: var(--bg);
+        background: radial-gradient(ellipse at 50% 0%, #5e1215 0%, var(--bg) 55%, #36070a 100%) fixed;
         color: var(--text);
         font-family: "Fira Sans Condensed", "Arial Narrow", Arial, sans-serif;
         font-size: 17px;
@@ -85,7 +85,7 @@
         align-items: center;
         justify-content: center;
         font-size: 64px;
-        background: linear-gradient(135deg, #a3291b, #5c120b);
+        background: linear-gradient(135deg, #7a1a1c, #35070a);
         border-bottom: 1px solid rgba(255, 246, 238, 0.25);
     }
     .card .body { padding: 16px 18px 20px; }
@@ -210,7 +210,7 @@
         -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
         mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     }
-    .reel-track { display: flex; align-items: flex-start; gap: 16px; width: max-content; animation: scroll 60s linear infinite; }
+    .reel-track { display: flex; align-items: flex-start; width: max-content; animation: scroll 80s linear infinite; }
     .reel:hover .reel-track { animation-play-state: paused; }
     .reel img {
         flex: none;
@@ -221,12 +221,45 @@
         background: rgba(239, 223, 184, 0.08);
     }
     .reel img:nth-child(even) { margin-top: 26px; }
-    @keyframes scroll { to { transform: translateX(calc(-50% - 8px)); } }
+    @keyframes scroll { to { transform: translateX(-50%); } }
     .note { max-width: 620px; margin: 34px auto 0; text-align: center; color: var(--muted); font-size: 15px; font-style: italic; }
     .covers img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid rgba(251, 241, 220, 0.25); }
     footer a { color: var(--gold); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     @media (max-width: 720px) { .reel img { height: 270px; } }
+    h1, h2, h3 { font-weight: 600; }
+    .card { border-radius: 22px; overflow: hidden; background: rgba(244, 230, 200, 0.04); border: 1.5px solid rgba(236, 217, 173, 0.6); }
+    .gift .photo, .video { border-radius: 20px; }
+    .covers img { border-radius: 14px; }
+    .reel img { border-radius: 18px; margin-right: 16px; }
+    .badge, .btn { border-radius: 999px; }
+    .btn.big {
+        position: relative;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 56px;
+        font-size: 19px;
+        background: linear-gradient(135deg, #f8edd3, #e3c98f);
+        color: #4a0b0d;
+        transition: transform 0.25s;
+    }
+    .btn.big::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -60%;
+        width: 40%;
+        background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+        transform: skewX(-20deg);
+        animation: glint 3.2s ease-in-out infinite 2s;
+    }
+    .btn.big .arrow { display: inline-block; transition: transform 0.3s; }
+    .btn.big:hover { transform: translateY(-2px) scale(1.04); }
+    .btn.big:hover .arrow { transform: translateX(7px); }
+    @keyframes glint { 0% { left: -60%; } 40%, 100% { left: 130%; } }
     @media (prefers-reduced-motion: reduce) { .snow { display: none; } * { animation: none !important; } }
     @media (max-width: 720px) {
         .gift { grid-template-columns: 1fr; }
@@ -239,15 +272,7 @@
 </style>
 </head>
 <body>
-<div class="snow" id="snow"></div>
 <div class="frame">
-    <div class="lights" id="lights"></div>
-    <div class="cane l"><svg viewBox="0 0 52 110"><path d="M14 108V30a12 12 0 0 1 24 0V36" fill="none" stroke="#fbf1dc" stroke-width="10" stroke-linecap="round"/><path d="M14 108V30a12 12 0 0 1 24 0V36" fill="none" stroke="#c8201a" stroke-width="10" stroke-dasharray="7 9"/></svg></div>
-    <div class="cane r"><svg viewBox="0 0 52 110"><path d="M14 108V30a12 12 0 0 1 24 0V36" fill="none" stroke="#fbf1dc" stroke-width="10" stroke-linecap="round"/><path d="M14 108V30a12 12 0 0 1 24 0V36" fill="none" stroke="#c8201a" stroke-width="10" stroke-dasharray="7 9"/></svg></div>
-    <div class="orn" style="left: 16%; height: 30px; --b: #d4a24c"></div>
-    <div class="orn" style="left: 30%; height: 46px; --b: #f1e3c0; animation-delay: -1s"></div>
-    <div class="orn" style="left: 70%; height: 38px; --b: #d4a24c; animation-delay: -2s"></div>
-    <div class="orn" style="left: 84%; height: 52px; --b: #f1e3c0; animation-delay: -3s"></div>
     <div class="wrap">
         <nav>
             <a href="#home" id="n-home">Главная</a>
@@ -265,7 +290,7 @@
 <script>
     // ДАННЫЕ: здесь меняем подарки, фото и контакты
     var ORDER_LINK = "https://t.me/julia_sanko";
-    var PHOTOS = ["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg", "img/6.jpg", "img/7.jpg", "img/8.jpg"];
+    var PHOTOS = ["img/photo-1.jpg", "img/photo-2.jpg", "img/photo-3.jpg", "img/photo-4.jpg", "img/photo-5.jpg"];
     var GIFTS = [
         { id: "gift-1", emoji: "🎁", name: "Подарок 1", price: "Цена", desc: "Описание подарка появится позже.", items: ["Состав появится позже"], video: "" },
         { id: "gift-2", emoji: "🎄", name: "Подарок 2", price: "Цена", desc: "Описание подарка появится позже.", items: ["Состав появится позже"], video: "" },
@@ -275,13 +300,13 @@
     var app = document.getElementById("app");
 
     function landing() {
-        var imgs = PHOTOS.concat(PHOTOS).map(function (p) {
+        var imgs = PHOTOS.concat(PHOTOS, PHOTOS, PHOTOS).map(function (p) {
             return '<img src="' + p + '" alt="Новогодний подарок">';
         }).join("");
         return '<section class="hero reveal"><h1>Уважаемые<br>магаданцы!</h1>' +
             '<p class="lead reveal" style="animation-delay: 0.3s">Не знаете, что подарить коллегам, друзьям или близким на Новый год?</p>' +
             '<p class="lead reveal" style="animation-delay: 0.6s">Мы создали для вас подборку прекрасных вариантов подарков. Наши идеи не оставят равнодушными ваших близких и помогут вам сэкономить время в поисках.</p>' +
-            '<a class="btn big" href="#catalog">Подарки</a></section>' +
+            '<a class="btn big" href="#catalog">Подарки <span class="arrow">→</span></a></section>' +
             '<div class="reel reveal" style="animation-delay: 1.1s"><div class="reel-track">' + imgs + '</div></div>' +
             '<p class="note">*Если вам покажется, что подарка недостаточно, вы можете добавить в него сертификат в любимый магазин человека. Тогда подарок станет не только эстетически красивым, но и добавит масштаб и практическую ценность.</p>';
     }
@@ -314,7 +339,7 @@
 
     function info() {
         return '<div class="info reveal"><h2>Дополнительная информация</h2>' +
-            '<div class="covers">' + [2, 3, 4].map(function (i) { return '<img src="' + PHOTOS[i] + '" alt="">'; }).join("") + '</div>' +
+            '<div class="covers">' + [0, 1, 2].map(function (i) { return '<img src="' + PHOTOS[i] + '" alt="">'; }).join("") + '</div>' +
             '<h3>Оплата</h3><p>Оплата осуществляется по реквизитам карты. Предоплата фиксированная — 500 ₽. Остаток суммы оплачивается в день доставки, перед получением.</p>' +
             '<h3>Доставка</h3><p>Выдача заказов осуществляется с 15.12 по 30.12. Если вам подарок нужен раньше, обязательно предупредите. Заказ можно забрать самостоятельно либо оформить доставку. Доставка осуществляется в пределах города. Цена доставки — 150 ₽.</p>' +
             '<h3>Акции</h3><p>— При покупке более 3-х подарков — скидка 5%;<br>— При покупке более 10-ти подарков — скидка 10%;<br>— При покупке на сумму более 10 000 ₽ — доставка бесплатно.</p>' +
@@ -336,26 +361,6 @@
     window.addEventListener("hashchange", route);
     route();
 
-    // Гирлянда
-    var lights = document.getElementById("lights");
-    var colors = ["#ff5a4d", "#ffd36b", "#7be0a4", "#8fd3ff"];
-    for (var k = 0; k < 14; k++) {
-        var b = document.createElement("i");
-        b.style.setProperty("--c", colors[k % 4]);
-        b.style.animationDelay = (k * 0.3) + "s";
-        lights.appendChild(b);
-    }
-
-    // Снег
-    var snow = document.getElementById("snow");
-    for (var i = 0; i < 40; i++) {
-        var s = document.createElement("i");
-        s.style.left = Math.random() * 100 + "%";
-        s.style.animationDuration = (8 + Math.random() * 10) + "s";
-        s.style.animationDelay = (-Math.random() * 15) + "s";
-        s.style.width = s.style.height = (3 + Math.random() * 4) + "px";
-        snow.appendChild(s);
-    }
 </script>
 </body>
 </html>
