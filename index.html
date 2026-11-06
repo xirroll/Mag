@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Новогодние подарки в Магадане">
 <meta property="og:description" content="Подборка новогодних подарков для коллег, друзей и близких. Заказ в Telegram.">
-<meta property="og:image" content="img/photo-1.jpg">
+<meta property="og:image" content="img/box-2/cover.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%81%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Fira+Sans+Condensed:wght@400;500&family=Inter:wght@800&family=Tenor+Sans&family=Great+Vibes&family=Marck+Script&display=swap">
 <style>
@@ -320,6 +320,30 @@
         from { clip-path: inset(-40% 100% -40% -10%); }
         to { clip-path: inset(-40% -10% -40% -10%); }
     }
+
+    /* ---- товар: галерея, видео, карточки ---- */
+    .gift { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: start; }
+    .gallery { min-width: 0; }
+    .gmain { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 20px; border: 1px solid rgba(147, 149, 151, 0.6); background: var(--bg-deep); cursor: pointer; transition: opacity 0.25s; }
+    .thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+    .thumb { padding: 0; border: 1.5px solid rgba(147, 149, 151, 0.35); border-radius: 14px; overflow: hidden; background: none; cursor: pointer; aspect-ratio: 1; opacity: 0.65; transition: opacity 0.25s, border-color 0.25s; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .thumb.on, .thumb:hover { opacity: 1; border-color: var(--gold); }
+    .gift h2 { margin-bottom: 4px; }
+    .gift .desc { margin: 14px 0 0; }
+    .gift h3 { font-size: 20px; color: var(--gold); margin-top: 22px; }
+    .buy { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 4px; }
+    .buy a.link { color: var(--muted); font-size: 15px; text-decoration: none; border-bottom: 1px solid rgba(147, 149, 151, 0.5); }
+    .buy a.link:hover { color: var(--text); border-color: var(--gold); }
+    .vhead { font-size: 24px; text-align: center; margin: 48px 0 0; color: var(--gold); }
+    .video.has { display: block; max-width: 340px; margin: 18px auto 0; aspect-ratio: auto; padding: 0; background: none; border: 0; }
+    .video.has video { display: block; width: 100%; height: auto; border-radius: 20px; border: 1px solid rgba(147, 149, 151, 0.6); background: var(--bg-deep); }
+    .card .photo.has { aspect-ratio: 4 / 5; padding: 0; background: var(--bg-deep); overflow: hidden; }
+    .card .photo.has img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s; }
+    .card:hover .photo.has img { transform: scale(1.05); }
+    .sub { color: var(--muted); font-size: 15px; margin-top: 2px; }
+    .card.soon { opacity: 0.5; cursor: default; }
+    .card.soon:hover { transform: none; border-color: rgba(147, 149, 151, 0.6); }
     @media (prefers-reduced-motion: reduce) { .snow { display: none; } * { animation: none !important; } }
     @media (max-width: 720px) {
         .gift { grid-template-columns: 1fr; }
@@ -365,10 +389,28 @@
     // ДАННЫЕ: здесь меняем подарки, фото и контакты
     var ORDER_LINK = "https://t.me/julia_sanko";
     var PHOTOS = ["img/photo-1.jpg", "img/photo-2.jpg", "img/photo-3.jpg", "img/photo-4.jpg", "img/photo-5.jpg"];
+    function candle(name) { return "Свеча ручной работы «" + name + "». Аромат клюквенный просекко"; }
     var GIFTS = [
-        { id: "gift-1", emoji: "🎁", name: "Подарок 1", price: "Цена", desc: "Описание подарка появится позже.", items: ["Состав появится позже"], video: "" },
-        { id: "gift-2", emoji: "🎄", name: "Подарок 2", price: "Цена", desc: "Описание подарка появится позже.", items: ["Состав появится позже"], video: "" },
-        { id: "gift-3", emoji: "✨", name: "Подарок 3", price: "Цена", desc: "Описание подарка появится позже.", items: ["Состав появится позже"], video: "" }
+        { id: "box-1", emoji: "🏔️", name: "Бокс 1", sub: "Гора «Магадан»", price: "1 500 ₽", items: [
+            "Гипсовая гора ручной работы с наклейкой «Магадан»", "Открытка",
+            "Фильтр-пакет с настойкой (коллекция вкусов большая, попадается случайный)", "Гирлянда", "Сосновая веточка (искусственная)"] },
+        { id: "box-2", emoji: "🪆", name: "Бокс 2", sub: "Свеча «Матрешка»", price: "2 400 ₽", items: [
+            candle("Матрешка"), "Открытка", "Чай «Малина-Мята»", "Крем для рук", "Гирлянда", "Сосновая веточка (искусственная)"],
+            cover: "img/box-2/cover.jpg",
+            photos: ["img/box-2/cover.jpg", "img/box-2/photo-2.jpg", "img/box-2/photo-3.jpg"],
+            videoFile: "img/box-2/video.mp4", poster: "img/box-2/poster.jpg" },
+        { id: "box-3", emoji: "❄️", name: "Бокс 3", sub: "Свеча «Снежинка»", price: "1 100 ₽", items: [
+            candle("Снежинка"), "Крем для рук", "Открытка", "Фруктовый чай / Чай «Малина-Мята»"] },
+        { id: "box-4", emoji: "❄️", name: "Бокс 4", sub: "Свеча «Снежинка»", price: "1 000 ₽", items: [
+            candle("Снежинка"), "Крем для рук", "Открытка", "Сосновая веточка (искусственная)"] },
+        { id: "box-5", emoji: "🐑", name: "Бокс 5", sub: "Свеча «Барашек»", price: "1 800 ₽", items: [
+            candle("Барашек"), "Открытка", "Чай «Малина-Мята»", "Сосновая веточка (искусственная)"] },
+        { id: "box-6", emoji: "🪆", name: "Бокс 6", sub: "Свеча «Матрешка»", price: "2 000 ₽", items: [
+            candle("Матрешка"), "Крем для рук", "Открытка", "Сосновая веточка (искусственная)"] },
+        { id: "box-7", emoji: "🐑", name: "Бокс 7", sub: "Свеча «Барашек»", price: "2 500 ₽", items: [
+            candle("Барашек"), "Коробочка с конфетами", "Открытка", "Фруктовый чай", "Сосновая веточка (искусственная)"] },
+        { id: "box-8", emoji: "❄️", name: "Бокс 8", sub: "Свеча «Снежинка»", price: "2 500 ₽", items: [
+            candle("Снежинка"), "Крем для рук", "Открытка", "Коробочка с конфетами", "Сосновая веточка (искусственная)"] }
     ];
 
     var app = document.getElementById("app");
@@ -388,11 +430,17 @@
 
     function catalog() {
         var cards = GIFTS.map(function (g, n) {
-            return '<a class="card reveal" style="animation-delay:' + (0.15 * n + 0.2) + 's" href="#' + g.id + '">' +
-                '<div class="photo">' + g.emoji + '</div>' +
-                '<div class="body"><h3>' + g.name + '</h3>' +
+            var photo = g.cover
+                ? '<div class="photo has"><img src="' + g.cover + '" alt="' + g.name + '" loading="lazy"></div>'
+                : '<div class="photo">' + g.emoji + '</div>';
+            var inner = photo +
+                '<div class="body"><h3>' + g.name + '</h3>' + (g.sub ? '<div class="sub">' + g.sub + '</div>' : '') +
                 '<div class="price">' + g.price + '</div>' +
-                '<div class="more">Состав и видеообзор →</div></div></a>';
+                (g.soon ? '' : '<div class="more">Состав и видеообзор →</div>') + '</div>';
+            var delay = 'style="animation-delay:' + (0.15 * n + 0.2) + 's"';
+            return g.soon
+                ? '<div class="card soon reveal" ' + delay + '>' + inner + '</div>'
+                : '<a class="card reveal" ' + delay + ' href="#' + g.id + '">' + inner + '</a>';
         }).join("");
         return '<section class="hero reveal"><h1>Подарки</h1>' +
             '<span class="badge">Ноябрь: скидка 10% на все подарки</span></section>' +
@@ -401,15 +449,31 @@
 
     function gift(g) {
         var list = g.items.map(function (i) { return "<li>" + i + "</li>"; }).join("");
-        var video = g.video
-            ? '<iframe src="' + g.video + '" title="Видеообзор: ' + g.name + '" loading="lazy" allowfullscreen></iframe>'
-            : "Здесь будет видеообзор подарка";
+        var photos = g.photos || [];
+        var left;
+        if (photos.length) {
+            var thumbs = photos.length > 1 ? '<div class="thumbs">' + photos.map(function (p, i) {
+                return '<button type="button" class="thumb' + (i === 0 ? " on" : "") + '" data-photo="' + p + '" aria-label="Фото ' + (i + 1) + '"><img src="' + p + '" alt="" loading="lazy"></button>';
+            }).join("") + '</div>' : "";
+            left = '<div class="gallery"><img id="gmain" class="gmain" src="' + photos[0] + '" alt="' + g.name + '">' + thumbs + '</div>';
+        } else {
+            left = '<div class="photo">' + g.emoji + '</div>';
+        }
+        var video;
+        if (g.videoFile) {
+            video = '<h3 class="vhead">Видеообзор</h3><div class="video has"><video controls playsinline preload="metadata" width="720" height="1566"' +
+                (g.poster ? ' poster="' + g.poster + '"' : "") + '><source src="' + g.videoFile + '" type="video/mp4"></video></div>';
+        } else if (g.video) {
+            video = '<h3 class="vhead">Видеообзор</h3><div class="video"><iframe src="' + g.video + '" title="Видеообзор: ' + g.name + '" loading="lazy" allowfullscreen></iframe></div>';
+        } else {
+            video = '<div class="video">Здесь будет видеообзор подарка</div>';
+        }
         return '<a class="back" href="#catalog">← Все подарки</a>' +
-            '<div class="gift reveal"><div class="photo">' + g.emoji + '</div>' +
-            '<div><h2>' + g.name + '</h2><div class="price">' + g.price + '</div>' +
-            '<p>' + g.desc + '</p><h3>Состав</h3><ul>' + list + '</ul>' +
-            '<a class="btn" href="' + ORDER_LINK + '" target="_blank" rel="noopener">Заказать</a></div></div>' +
-            '<div class="video">' + video + '</div>';
+            '<div class="gift reveal">' + left +
+            '<div><h2>' + g.name + '</h2>' + (g.sub ? '<div class="sub">' + g.sub + '</div>' : '') + '<div class="price">' + g.price + '</div>' +
+            (g.desc ? '<p class="desc">' + g.desc + '</p>' : '') + '<h3>Состав</h3><ul>' + list + '</ul>' +
+            '<div class="buy"><a class="btn" href="' + ORDER_LINK + '" target="_blank" rel="noopener">Заказать</a>' +
+            '<a class="link" href="#info">Оплата и доставка</a></div></div></div>' + video;
     }
 
     function info() {
@@ -424,7 +488,7 @@
 
     function route() {
         var h = location.hash.replace("#", "") || "home";
-        var g = GIFTS.filter(function (x) { return x.id === h; })[0];
+        var g = GIFTS.filter(function (x) { return x.id === h && !x.soon; })[0];
         var page = g ? gift(g) : (h === "info" ? info() : (h === "catalog" ? catalog() : landing()));
         app.innerHTML = page;
         var tab = g ? "catalog" : (h === "info" || h === "catalog" ? h : "home");
@@ -433,6 +497,22 @@
         });
         window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
+    app.addEventListener("click", function (e) {
+        var main = document.getElementById("gmain");
+        if (!main) return;
+        var t = e.target.closest ? e.target.closest("[data-photo]") : null;
+        if (!t && e.target === main) {
+            // клик по большому фото — следующее фото
+            var all = app.querySelectorAll(".thumb");
+            for (var i = 0; i < all.length; i++) {
+                if (all[i].className.indexOf("on") > -1) { t = all[(i + 1) % all.length]; break; }
+            }
+        }
+        if (!t) return;
+        main.src = t.getAttribute("data-photo");
+        var th = app.querySelectorAll(".thumb");
+        for (var j = 0; j < th.length; j++) th[j].className = "thumb" + (th[j] === t ? " on" : "");
+    });
     window.addEventListener("hashchange", route);
     route();
 
