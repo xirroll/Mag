@@ -325,7 +325,7 @@
     .gift { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: start; }
     .gallery { min-width: 0; }
     .gmain { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 20px; border: 1px solid rgba(147, 149, 151, 0.6); background: var(--bg-deep); cursor: pointer; transition: opacity 0.25s; }
-    .thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+    .thumbs { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); gap: 10px; margin-top: 10px; }
     .thumb { padding: 0; border: 1.5px solid rgba(147, 149, 151, 0.35); border-radius: 14px; overflow: hidden; background: none; cursor: pointer; aspect-ratio: 1; opacity: 0.65; transition: opacity 0.25s, border-color 0.25s; }
     .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .thumb.on, .thumb:hover { opacity: 1; border-color: var(--gold); }
@@ -393,16 +393,25 @@
     var GIFTS = [
         { id: "box-1", emoji: "🏔️", name: "Бокс 1", sub: "Гора «Магадан»", price: "1 500 ₽", items: [
             "Гипсовая гора ручной работы с наклейкой «Магадан»", "Открытка",
-            "Фильтр-пакет с настойкой (коллекция вкусов большая, попадается случайный)", "Гирлянда", "Сосновая веточка (искусственная)"] },
+            "Фильтр-пакет с настойкой (коллекция вкусов большая, попадается случайный)", "Гирлянда", "Сосновая веточка (искусственная)"],
+            cover: "img/box-1/cover.jpg",
+            photos: ["img/box-1/photo-2.jpg"],
+            videoFile: "img/box-1/video.mp4", poster: "img/box-1/poster.jpg" },
         { id: "box-2", emoji: "🪆", name: "Бокс 2", sub: "Свеча «Матрешка»", price: "2 400 ₽", items: [
             candle("Матрешка"), "Открытка", "Чай «Малина-Мята»", "Крем для рук", "Гирлянда", "Сосновая веточка (искусственная)"],
             cover: "img/box-2/cover.jpg",
-            photos: ["img/box-2/cover.jpg", "img/box-2/photo-2.jpg", "img/box-2/photo-3.jpg"],
+            photos: ["img/box-2/photo-2.jpg", "img/box-2/photo-3.jpg"],
             videoFile: "img/box-2/video.mp4", poster: "img/box-2/poster.jpg" },
         { id: "box-3", emoji: "❄️", name: "Бокс 3", sub: "Свеча «Снежинка»", price: "1 100 ₽", items: [
-            candle("Снежинка"), "Крем для рук", "Открытка", "Фруктовый чай / Чай «Малина-Мята»"] },
+            candle("Снежинка"), "Крем для рук", "Открытка", "Фруктовый чай / Чай «Малина-Мята»"],
+            cover: "img/box-3/cover.jpg",
+            photos: ["img/box-3/photo-2.jpg"],
+            videoFile: "img/box-3/video.mp4", poster: "img/box-3/poster.jpg" },
         { id: "box-4", emoji: "❄️", name: "Бокс 4", sub: "Свеча «Снежинка»", price: "1 000 ₽", items: [
-            candle("Снежинка"), "Крем для рук", "Открытка", "Сосновая веточка (искусственная)"] },
+            candle("Снежинка"), "Крем для рук", "Открытка", "Сосновая веточка (искусственная)"],
+            cover: "img/box-4/cover.jpg",
+            photos: ["img/box-4/photo-2.jpg", "img/box-4/photo-3.jpg"],
+            videoFile: "img/box-4/video.mp4", poster: "img/box-4/poster.jpg" },
         { id: "box-5", emoji: "🐑", name: "Бокс 5", sub: "Свеча «Барашек»", price: "1 800 ₽", items: [
             candle("Барашек"), "Открытка", "Чай «Малина-Мята»", "Сосновая веточка (искусственная)"] },
         { id: "box-6", emoji: "🪆", name: "Бокс 6", sub: "Свеча «Матрешка»", price: "2 000 ₽", items: [
@@ -449,10 +458,10 @@
 
     function gift(g) {
         var list = g.items.map(function (i) { return "<li>" + i + "</li>"; }).join("");
-        var photos = g.photos || [];
+        var photos = (g.cover ? [g.cover] : []).concat(g.photos || []);
         var left;
         if (photos.length) {
-            var thumbs = photos.length > 1 ? '<div class="thumbs">' + photos.map(function (p, i) {
+            var thumbs = photos.length > 1 ? '<div class="thumbs" style="--n:' + photos.length + '">' + photos.map(function (p, i) {
                 return '<button type="button" class="thumb' + (i === 0 ? " on" : "") + '" data-photo="' + p + '" aria-label="Фото ' + (i + 1) + '"><img src="' + p + '" alt="" loading="lazy"></button>';
             }).join("") + '</div>' : "";
             left = '<div class="gallery"><img id="gmain" class="gmain" src="' + photos[0] + '" alt="' + g.name + '">' + thumbs + '</div>';
