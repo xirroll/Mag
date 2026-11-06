@@ -344,6 +344,12 @@
     .sub { color: var(--muted); font-size: 15px; margin-top: 2px; }
     .card.soon { opacity: 0.5; cursor: default; }
     .card.soon:hover { transform: none; border-color: rgba(147, 149, 151, 0.6); }
+    .covers { gap: 12px; margin: 10px 0 22px; align-items: center; }
+    .covers img { width: 100%; height: auto; aspect-ratio: auto; object-fit: fill; padding: 5px; border-radius: 16px; border: 1.5px solid rgba(147, 149, 151, 0.6); background: rgba(147, 149, 151, 0.08); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35); }
+    .covers img:nth-child(1) { transform: rotate(-3deg); }
+    .covers img:nth-child(2) { transform: translateY(-10px) scale(1.05); position: relative; z-index: 1; }
+    .covers img:nth-child(3) { transform: rotate(3deg); }
+    @media (min-width: 760px) { .covers { margin-left: -50px; margin-right: -50px; } }
     @media (prefers-reduced-motion: reduce) { .snow { display: none; } * { animation: none !important; } }
     @media (max-width: 720px) {
         .gift { grid-template-columns: 1fr; }
@@ -413,13 +419,25 @@
             photos: ["img/box-4/photo-2.jpg", "img/box-4/photo-3.jpg"],
             videoFile: "img/box-4/video.mp4", poster: "img/box-4/poster.jpg" },
         { id: "box-5", emoji: "🐑", name: "Бокс 5", sub: "Свеча «Барашек»", price: "1 800 ₽", items: [
-            candle("Барашек"), "Открытка", "Чай «Малина-Мята»", "Сосновая веточка (искусственная)"] },
+            candle("Барашек"), "Открытка", "Чай «Малина-Мята»", "Сосновая веточка (искусственная)"],
+            cover: "img/box-5/cover.jpg",
+            photos: ["img/box-5/photo-2.jpg"],
+            videoFile: "img/box-5/video.mp4", poster: "img/box-5/poster.jpg" },
         { id: "box-6", emoji: "🪆", name: "Бокс 6", sub: "Свеча «Матрешка»", price: "2 000 ₽", items: [
-            candle("Матрешка"), "Крем для рук", "Открытка", "Сосновая веточка (искусственная)"] },
+            candle("Матрешка"), "Крем для рук", "Открытка", "Сосновая веточка (искусственная)"],
+            cover: "img/box-6/cover.jpg",
+            photos: ["img/box-6/photo-2.jpg"],
+            videoFile: "img/box-6/video.mp4", poster: "img/box-6/poster.jpg" },
         { id: "box-7", emoji: "🐑", name: "Бокс 7", sub: "Свеча «Барашек»", price: "2 500 ₽", items: [
-            candle("Барашек"), "Коробочка с конфетами", "Открытка", "Фруктовый чай", "Сосновая веточка (искусственная)"] },
+            candle("Барашек"), "Коробочка с конфетами", "Открытка", "Фруктовый чай", "Сосновая веточка (искусственная)"],
+            cover: "img/box-7/cover.jpg",
+            photos: ["img/box-7/photo-2.jpg"],
+            videoFile: "img/box-7/video.mp4", poster: "img/box-7/poster.jpg" },
         { id: "box-8", emoji: "❄️", name: "Бокс 8", sub: "Свеча «Снежинка»", price: "2 500 ₽", items: [
-            candle("Снежинка"), "Крем для рук", "Открытка", "Коробочка с конфетами", "Сосновая веточка (искусственная)"] }
+            candle("Снежинка"), "Крем для рук", "Открытка", "Коробочка с конфетами", "Сосновая веточка (искусственная)"],
+            cover: "img/box-8/cover.jpg",
+            photos: ["img/box-8/photo-2.jpg"],
+            videoFile: "img/box-8/video.mp4", poster: "img/box-8/poster.jpg" }
     ];
 
     var app = document.getElementById("app");
@@ -487,7 +505,7 @@
 
     function info() {
         return '<div class="info reveal"><h2>Дополнительная информация</h2>' +
-            '<div class="covers">' + [[0, "50% 50%"], [1, "50% 88%"], [2, "50% 100%"]].map(function (c) { return '<img src="' + PHOTOS[c[0]] + '" width="450" height="800" loading="lazy" style="object-position: ' + c[1] + '" alt="">'; }).join("") + '</div>' +
+            '<div class="covers">' + [["Свеча-снегурочка в подарочной коробке", 0], ["Гипсовая гора с наклейкой «Магадан»", 1], ["Подарочные коробки с лентами", 2]].map(function (c) { return '<img src="' + PHOTOS[c[1]] + '" width="450" height="800" loading="lazy" alt="' + c[0] + '">'; }).join("") + '</div>' +
             '<h3>Оплата</h3><p>Оплата осуществляется по реквизитам карты. Предоплата фиксированная — 500 ₽. Остаток суммы оплачивается в день доставки, перед получением.</p>' +
             '<h3>Доставка</h3><p>Выдача заказов осуществляется с 15.12 по 30.12. Если вам подарок нужен раньше, обязательно предупредите. Заказ можно забрать самостоятельно либо оформить доставку. Доставка осуществляется в пределах города. Цена доставки — 150 ₽.</p>' +
             '<h3>Акции</h3><p>— При покупке более 3-х подарков — скидка 5%;<br>— При покупке более 10-ти подарков — скидка 10%;<br>— При покупке на сумму более 10 000 ₽ — доставка бесплатно.</p>' +
